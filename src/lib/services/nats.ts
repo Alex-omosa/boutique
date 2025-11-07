@@ -13,7 +13,7 @@ export async function getNatsConnection(): Promise<NatsConnection> {
       servers: process.env.NATS_URL || "nats://localhost:4222",
     });
 
-    console.log("[NATS] Connected to NATS server");
+    console.log("[NATS] Connected to NATS server {servers}");
 
     // Handle graceful shutdown
     natsConnection.closed().then((err) => {
