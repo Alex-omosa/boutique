@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "start": "MEILISEARCH_URL=https://search.omosaalex.com MEILISEARCH_API_KEY=O8KgL8662KnF NATS_URL=nats://139.162.128.69:4222 vinxi start",
+    "start": "vinxi start",
     "version": "vinxi version"
   },
   "dependencies": {
@@ -27,3 +27,4 @@
     "@types/node": "^24.10.0"
   }
 }
+
