@@ -1,14 +1,9 @@
 import { useSearch } from "~/contexts/SearchContext";
-import { For, createEffect } from "solid-js";
+import { For } from "solid-js";
 import { SearchFilters } from "~/lib/types/types";
 
 export default function FilterSidebar() {
     const { filters, toggleFilter, search } = useSearch();
-
-    createEffect(() => {
-        const f = filters();
-        search();
-    });
 
     const FilterSection = (props: { title: string; filterKey: keyof Omit<SearchFilters, 'query'>; options: string[] }) => (
         <div class="filter-section">
@@ -21,7 +16,10 @@ export default function FilterSidebar() {
                                 type="checkbox"
                                 class="filter-checkbox"
                                 checked={filters()[props.filterKey].includes(option)}
-                                onChange={() => toggleFilter(props.filterKey, option)}
+                                onChange={() => {
+                                    toggleFilter(props.filterKey, option);
+                                    search();
+                                }}
                             />
                             <span class="filter-label">{option}</span>
                         </label>
