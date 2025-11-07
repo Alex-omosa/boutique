@@ -20,14 +20,12 @@ export default function SearchBar() {
   });
   
   return (
-    <div class="mb-8">
-      <input
-        class="search-input"
-        value={filters().query}
-        onInput={handleInput}
-        placeholder="Search products..."
-        type="search"
-      />
-    </div>
+    <input
+      class="search-input"
+      value={filters().query}
+      onInput={handleInput}
+      placeholder="Search products..."
+      type="search"
+    />
   );
 }

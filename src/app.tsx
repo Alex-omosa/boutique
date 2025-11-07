@@ -14,8 +14,8 @@ export default function App() {
             <Title>Boutique - Fashion Store</Title>
             <Meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
             <Meta name="description" content="Browse our collection of fashion items" />
-            <nav class="mobile-nav">
-              <div class="mobile-nav-container">
+            <nav class="top-nav">
+              <div class="top-nav-container">
                 <a href="/" class="nav-link">Home</a>
                 <a href="/about" class="nav-link">About</a>
               </div>

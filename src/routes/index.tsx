@@ -4,22 +4,28 @@ import FilterSidebar from "~/components/FilterSidebar";
 
 export default function Home() {
   return (
-    <main class="page-container">
-      <h1 class="page-title text-center">Welcome to the Boutique</h1>
-      
-      <SearchBar />
-      
-      <section>
-        <h2 class="section-title">Products</h2>
-        <div class="layout-flex">
-          <div class="sidebar-column">
-            <FilterSidebar />
-          </div>
-          <div class="content-column">
-            <ProductList />
-          </div>
+    <>
+      <div class="top-bar-wrapper">
+        <div class="top-bar-container">
+          <FilterSidebar />
+          <SearchBar />
         </div>
-      </section>
-    </main>
+      </div>
+      
+      <main class="page-container">
+        <section>
+          <div class="layout-flex">
+            <div class="sidebar-column">
+              <aside class="filter-sidebar-desktop">
+                <FilterSidebar showDesktopSidebar={true} />
+              </aside>
+            </div>
+            <div class="content-column">
+              <ProductList />
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
