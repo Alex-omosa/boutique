@@ -2,67 +2,83 @@
 
 ## Overview
 
-Your Tailwind setup uses **Tailwind CSS v4** with a centralized theme system. All colors, spacing, typography, and styling can be controlled from **one place**: `/src/app.css`
+Your Tailwind setup uses **Tailwind CSS v4** with the modern `@theme` directive for centralized configuration. All colors, spacing, typography, and styling can be controlled from **one place**: `/src/app.css`
 
 ## 🎯 Quick Start
 
 ### Change Brand Colors
 
-Open `/src/app.css` and find the **"🎨 THEME CONFIGURATION"** section at the top:
+Open `/src/app.css` and find the **`@theme`** block near the top:
 
 ```css
-/* === Brand Colors === */
---brand-primary: oklch(54.6% 0.245 262.881);        /* Main brand color (blue) */
---brand-primary-hover: oklch(42.4% 0.199 265.638);  /* Primary hover state */
---brand-primary-light: oklch(62.3% 0.214 259.815);  /* Lighter primary */
-
---brand-accent: oklch(57.7% 0.245 27.325);          /* Accent color (red) */
---brand-accent-hover: oklch(50.5% 0.213 27.518);    /* Accent hover */
+@theme {
+  /* === COLORS === */
+  --color-primary-500: oklch(54.6% 0.245 262.881);  /* Main brand color */
+  --color-primary-600: oklch(54.6% 0.245 262.881);
+  --color-primary-700: oklch(45% 0.21 265);
+  --color-primary-800: oklch(42.4% 0.199 265.638);
+}
 ```
 
 **Example:** Change to green theme:
 ```css
---brand-primary: oklch(60% 0.19 145);        /* Green */
---brand-primary-hover: oklch(50% 0.19 145);  /* Darker green */
---brand-primary-light: oklch(70% 0.19 145);  /* Lighter green */
+@theme {
+  --color-primary-500: oklch(65% 0.19 145);  /* Light green */
+  --color-primary-600: oklch(55% 0.19 145);  /* Main green */
+  --color-primary-700: oklch(48% 0.19 145);  /* Medium green */
+  --color-primary-800: oklch(40% 0.19 145);  /* Dark green */
+}
 ```
 
 ### Change Neutral Colors (Grays)
 
 ```css
-/* === Neutral Colors === */
---neutral-50: oklch(98.5% 0.002 247.839);   /* Lightest gray - page background */
---neutral-200: oklch(92.8% 0.006 264.531);  /* Card borders */
---neutral-300: oklch(87.2% 0.01 258.338);   /* Input borders */
---neutral-600: oklch(44.6% 0.03 256.802);   /* Secondary text */
---neutral-900: oklch(21% 0.034 264.665);    /* Primary text */
+@theme {
+  --color-neutral-50: oklch(98.5% 0.002 247.839);   /* Lightest - background */
+  --color-neutral-200: oklch(92.8% 0.006 264.531);  /* Card borders */
+  --color-neutral-300: oklch(87.2% 0.01 258.338);   /* Input borders */
+  --color-neutral-600: oklch(44.6% 0.03 256.802);   /* Secondary text */
+  --color-neutral-900: oklch(21% 0.034 264.665);    /* Primary text */
+}
 ```
 
 ### Change Spacing & Layout
 
 ```css
-/* === Layout & Spacing === */
---spacing-unit: 0.25rem;        /* Base spacing (4px) - all margins/paddings multiply this */
---container-max: 80rem;         /* Max container width (1280px) */
---radius-lg: 0.5rem;           /* Default border radius */
+@theme {
+  /* === SPACING === */
+  --spacing-4: 1rem;           /* Base spacing unit */
+  --spacing-6: 1.5rem;         /* Medium spacing */
+  --spacing-8: 2rem;           /* Large spacing */
+  
+  /* === CONTAINERS === */
+  --container-max-width: 80rem; /* Max container width (1280px) */
+  
+  /* === BORDER RADIUS === */
+  --radius-lg: 0.5rem;         /* Default border radius */
+}
 ```
 
 ### Change Typography
 
 ```css
-/* === Typography === */
---font-sans: ui-sans-serif, system-ui, sans-serif;  /* Change font family here */
---text-xl: 1.25rem;            /* Size of large text */
---font-weight-bold: 700;       /* Bold weight */
+@theme {
+  /* === TYPOGRAPHY === */
+  --font-family-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-size-xl: 1.25rem;            /* Size of large text */
+  --font-weight-bold: 700;            /* Bold weight */
+}
 ```
 
 ### Change Animations
 
 ```css
-/* === Transitions & Animations === */
---transition-fast: 150ms;      /* Quick animations */
---transition-base: 200ms;      /* Normal animations */
---transition-slow: 300ms;      /* Slow animations */
+@theme {
+  /* === TRANSITIONS === */
+  --transition-duration-fast: 150ms;   /* Quick animations */
+  --transition-duration-base: 200ms;   /* Normal animations */
+  --transition-duration-slow: 300ms;   /* Slow animations */
+}
 ```
 
 ## 📦 Component Classes Available
@@ -117,31 +133,66 @@ Instead of writing utility classes in JSX, use these semantic component classes:
 
 ## 🎨 Color System Architecture
 
-### Brand Colors → Components Mapping
+### Theme Token Structure
 
-| Brand Variable | Used In Components |
-|----------------|-------------------|
-| `--brand-primary` | Links, buttons, prices |
-| `--brand-primary-hover` | Link hovers, button hovers |
-| `--brand-primary-light` | Focus rings, highlights |
-| `--brand-accent` | Error buttons, warnings |
+The `@theme` directive creates a palette-based color system. You can now use:
+- Utility classes like `bg-primary-600`, `text-neutral-900`, `border-accent-500`
+- Component classes that reference these tokens internally
 
-### Neutral Colors → Usage
+### Color Scale Guide
 
-| Neutral Variable | Purpose |
-|-----------------|---------|
-| `--neutral-50` | Page background |
-| `--neutral-100` | Badge backgrounds, image placeholders |
-| `--neutral-200` | Card borders, dividers |
-| `--neutral-300` | Input borders |
-| `--neutral-400` | Input hover states |
-| `--neutral-500` | Muted text |
-| `--neutral-600` | Secondary text (brands) |
-| `--neutral-700` | Filter labels |
-| `--neutral-800` | Headings, emphasis |
-| `--neutral-900` | Primary text, body |
+| Token | Lightness | Purpose |
+|-------|-----------|---------|
+| `*-50` | 97-98% | Lightest backgrounds |
+| `*-100` | 93-96% | Light backgrounds |
+| `*-200` | 85-92% | Borders, dividers |
+| `*-300` | 75-87% | Disabled states |
+| `*-400` | 65-75% | Placeholder text |
+| `*-500` | 55-65% | Secondary elements |
+| `*-600` | 45-55% | **Primary** (main brand color) |
+| `*-700` | 40-48% | Hover states |
+| `*-800` | 35-42% | Active states |
+| `*-900` | 30-38% | Text emphasis |
+
+### Usage Examples
+
+```css
+/* In @theme block - Define the palette */
+@theme {
+  --color-primary-600: oklch(55% 0.19 145);  /* Main green */
+}
+
+/* In components - Use the palette */
+.my-button {
+  background-color: var(--color-primary-600);
+  color: white;
+}
+```
+
+Or use Tailwind utilities directly in JSX:
+```tsx
+<button class="bg-primary-600 text-white hover:bg-primary-700">
+  Click me
+</button>
+```
 
 ## 🔧 Advanced Customization
+
+### Add a New Color to the Theme
+
+```css
+@theme {
+  --color-brand-*: initial;
+  --color-brand-500: oklch(60% 0.18 280);  /* Custom purple */
+  --color-brand-600: oklch(55% 0.18 280);
+  --color-brand-700: oklch(48% 0.18 280);
+}
+```
+
+Now use it in components or utilities:
+```tsx
+<div class="bg-brand-600 text-white">Custom color!</div>
+```
 
 ### Add a New Component Class
 
@@ -150,15 +201,15 @@ Edit `/src/app.css` in the `@layer components` section:
 ```css
 @layer components {
   .my-custom-button {
-    background-color: var(--brand-primary);
-    color: var(--neutral-white);
-    padding: calc(var(--spacing) * 3) calc(var(--spacing) * 6);
+    background-color: var(--color-primary-600);
+    color: white;
+    padding: var(--spacing-3) var(--spacing-6);
     border-radius: var(--radius-lg);
     font-weight: var(--font-weight-semibold);
-    transition: background-color var(--transition-fast) var(--transition-ease);
+    transition: background-color var(--transition-duration-fast);
     
     &:hover {
-      background-color: var(--brand-primary-hover);
+      background-color: var(--color-primary-700);
     }
   }
 }
@@ -169,18 +220,21 @@ Then use it in your JSX:
 <button class="my-custom-button">Click Me</button>
 ```
 
-### Override for Dark Mode (Future)
+### Override for Dark Mode
 
-Add at the bottom of the theme layer:
+Add dark mode overrides in the `@theme` block:
 
 ```css
-@layer theme {
+@theme {
+  /* Light mode colors (default) */
+  --color-neutral-50: oklch(98% 0.002 247);
+  --color-neutral-900: oklch(21% 0.034 264);
+  
+  /* Dark mode */
   @media (prefers-color-scheme: dark) {
-    :root {
-      --neutral-50: oklch(15% 0.01 264);
-      --neutral-900: oklch(95% 0.01 264);
-      /* ... swap other colors ... */
-    }
+    --color-neutral-50: oklch(15% 0.01 264);      /* Dark background */
+    --color-neutral-900: oklch(95% 0.01 264);     /* Light text */
+    --color-primary-600: oklch(70% 0.19 260);     /* Brighter for dark bg */
   }
 }
 ```

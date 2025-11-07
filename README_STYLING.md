@@ -2,7 +2,7 @@
 
 ## 🎯 Goal Achieved: Centralized Theme Control
 
-Your Tailwind CSS setup now allows you to **control all styling from one place** without writing lots of utility classes in JSX.
+Your Tailwind CSS v4 setup uses the **`@theme` directive** for centralized theme configuration. Control all styling from one place without bloated utility classes in JSX.
 
 ---
 
@@ -12,15 +12,14 @@ Your Tailwind CSS setup now allows you to **control all styling from one place**
 
 ```
 /src/app.css
-  ├── 🎨 THEME CONFIGURATION (Lines 6-123)
-  │   ├── Brand Colors (primary, accent)
-  │   ├── Neutral Colors (grays)
-  │   ├── Semantic Colors (error, success)
-  │   ├── Layout & Spacing
-  │   ├── Typography
-  │   └── Transitions & Animations
+  ├── @theme { } (Lines 9-126)
+  │   ├── Colors (primary, accent, neutral, semantic)
+  │   ├── Spacing (padding, margin scales)
+  │   ├── Typography (font sizes, weights, families)
+  │   ├── Border Radius
+  │   └── Transitions
   │
-  └── @layer components (Lines 280-674)
+  └── @layer components (Lines 364+)
       └── Pre-built semantic classes for all UI elements
 ```
 
@@ -60,49 +59,66 @@ Your Tailwind CSS setup now allows you to **control all styling from one place**
 
 ### Example 1: Change Brand Color to Green
 
-**Edit:** `/src/app.css` line 11
+**Edit:** `/src/app.css` in the `@theme` block
 
 ```css
 /* Before */
---brand-primary: oklch(54.6% 0.245 262.881);  /* Blue */
+@theme {
+  --color-primary-600: oklch(54.6% 0.245 262.881);  /* Blue */
+}
 
 /* After */
---brand-primary: oklch(55% 0.19 145);         /* Green */
+@theme {
+  --color-primary-600: oklch(55% 0.19 145);         /* Green */
+  --color-primary-700: oklch(48% 0.19 145);         /* Darker green */
+  --color-primary-800: oklch(40% 0.19 145);         /* Even darker */
+}
 ```
 
-**Result:** Navigation links, prices, and all blue elements become green **everywhere** 🎉
+**Result:** Navigation links, prices, and all blue elements become green **everywhere** 🎉  
+**Utilities available:** `text-primary-600`, `bg-primary-600`, `border-primary-600`
 
 ---
 
 ### Example 2: Change Background Color
 
-**Edit:** `/src/app.css` line 22
+**Edit:** `/src/app.css` in the `@theme` block
 
 ```css
 /* Before */
---neutral-50: oklch(98.5% 0.002 247.839);  /* Light gray */
+@theme {
+  --color-neutral-50: oklch(98.5% 0.002 247.839);  /* Light gray */
+}
 
 /* After */
---neutral-50: oklch(97% 0.02 45);          /* Warm beige */
+@theme {
+  --color-neutral-50: oklch(97% 0.02 45);          /* Warm beige */
+}
 ```
 
-**Result:** Page background changes to warm beige **everywhere** 🎉
+**Result:** Page background changes to warm beige **everywhere** 🎉  
+**Utilities available:** `bg-neutral-50`
 
 ---
 
 ### Example 3: Make Everything More Rounded
 
-**Edit:** `/src/app.css` line 47
+**Edit:** `/src/app.css` in the `@theme` block
 
 ```css
 /* Before */
---radius-lg: 0.5rem;
+@theme {
+  --radius-lg: 0.5rem;
+}
 
 /* After */
---radius-lg: 1rem;
+@theme {
+  --radius-lg: 1rem;
+}
 ```
 
-**Result:** Cards, inputs, images all get rounder corners **everywhere** 🎉
+**Result:** Cards, inputs, images all get rounder corners **everywhere** 🎉  
+**Utilities available:** `rounded-lg`
 
 ---
 
@@ -152,41 +168,60 @@ Copy-paste any theme into `/src/app.css` ⚡
 ## 🛠️ Common Customizations
 
 ### Change All Colors
-Edit lines 10-16 in `/src/app.css` (Brand Colors section)
+Edit the `@theme` block in `/src/app.css`:
+```css
+@theme {
+  --color-primary-600: oklch(55% 0.19 145);  /* Your brand color */
+  --color-accent-600: oklch(65% 0.22 280);   /* Your accent color */
+}
+```
 
 ### Change Text Colors
-Edit lines 18-31 in `/src/app.css` (Neutral Colors section)
+Edit neutral colors in `@theme`:
+```css
+@theme {
+  --color-neutral-900: oklch(15% 0.03 260);  /* Darker text */
+  --color-neutral-600: oklch(50% 0.03 260);  /* Secondary text */
+}
+```
 
 ### Change Spacing
-Edit line 43 in `/src/app.css`:
+Edit spacing scale in `@theme`:
 ```css
---spacing-unit: 0.25rem;  /* Base spacing - all margins/paddings multiply this */
+@theme {
+  --spacing-4: 1.2rem;  /* Increase base spacing */
+  --spacing-6: 1.8rem;  /* Increase medium spacing */
+}
 ```
 
 ### Change Font
-Edit line 51 in `/src/app.css`:
+Edit font family in `@theme`:
 ```css
---font-sans: 'Your Font', system-ui, sans-serif;
+@theme {
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
 ```
 
 ### Change Animation Speed
-Edit lines 83-85 in `/src/app.css`:
+Edit transition duration in `@theme`:
 ```css
---transition-fast: 150ms;
---transition-base: 200ms;
---transition-slow: 300ms;
+@theme {
+  --transition-duration-fast: 100ms;
+  --transition-duration-base: 150ms;
+}
 ```
 
 ---
 
 ## 💡 Key Benefits
 
-✅ **Single Source of Truth** - All colors/spacing in one place  
-✅ **No Utility Class Spam** - Clean, readable JSX  
-✅ **Easy Theming** - Change theme in 30 seconds  
+✅ **Tailwind v4 `@theme` Directive** - Modern CSS-first configuration  
+✅ **Single Source of Truth** - All design tokens in one `@theme` block  
+✅ **Utility Classes Available** - Use `bg-primary-600`, `text-neutral-900`, etc.  
+✅ **Component Classes Too** - Pre-built `.product-card`, `.nav-link`, etc.  
+✅ **Easy Theming** - Change entire palette in seconds  
 ✅ **Consistent Design** - All components use same tokens  
-✅ **Maintainable** - Easy to update styling later  
-✅ **Type-Safe** - Variables prevent typos  
+✅ **No Config File Needed** - Pure CSS configuration  
 
 ---
 
@@ -208,26 +243,32 @@ Edit lines 83-85 in `/src/app.css`:
 
 ## 🚦 Quick Reference
 
-| Want to change... | Edit this line in `/src/app.css` |
-|-------------------|-----------------------------------|
-| Primary brand color | Line 11: `--brand-primary` |
-| Background color | Line 22: `--neutral-50` |
-| Text color | Line 31: `--neutral-900` |
-| Border color | Line 24: `--neutral-200` |
-| Border radius | Line 47: `--radius-lg` |
-| Spacing scale | Line 43: `--spacing-unit` |
-| Font family | Line 51: `--font-sans` |
-| Animation speed | Lines 83-86: `--transition-*` |
+| Want to change... | Edit in `@theme` block in `/src/app.css` |
+|-------------------|-------------------------------------------|
+| Primary brand color | `--color-primary-600` |
+| Background color | `--color-neutral-50` |
+| Text color | `--color-neutral-900` |
+| Border color | `--color-neutral-200` |
+| Border radius | `--radius-lg` |
+| Spacing scale | `--spacing-4`, `--spacing-6`, etc. |
+| Font family | `--font-family-sans` |
+| Animation speed | `--transition-duration-fast` |
 
 ---
 
 ## ✨ That's It!
 
-You now have a **fully centralized styling system** where:
+You now have a **modern Tailwind v4 theme system** where:
 
-1. 🎨 All colors are in one place at the top of `/src/app.css`
-2. 🏗️ All component styles use semantic classes (no utility spam)
-3. ⚡ Theming is as easy as changing a few CSS variables
-4. 📚 Complete documentation with examples
+1. 🎨 All design tokens in one `@theme` block in `/src/app.css`
+2. 🏗️ Utility classes available everywhere: `bg-primary-600`, `text-neutral-900`
+3. 🎯 Semantic component classes for common patterns: `.product-card`, `.nav-link`
+4. ⚡ Easy theming by changing a few values in `@theme`
+5. 📚 Complete documentation with 6 ready-to-use themes
+
+**Choose your approach:**
+- **Utilities in JSX**: `class="bg-white border border-neutral-200 rounded-lg"`
+- **Component classes**: `class="product-card"`
+- **Mix both**: `class="product-card bg-primary-600"` (utility overrides component)
 
 **Happy theming!** 🎉
