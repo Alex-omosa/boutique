@@ -1,4 +1,4 @@
-import { MetaProvider, Title } from "@solidjs/meta";
+import { MetaProvider, Title, Meta } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { SearchProvider } from "~/contexts/SearchContext";
@@ -12,8 +12,10 @@ export default function App() {
         root={props => (
           <MetaProvider>
             <Title>Boutique - Fashion Store</Title>
-            <nav class="bg-white shadow-sm border-b border-gray-200 py-4 px-6">
-              <div class="container mx-auto flex gap-6">
+            <Meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+            <Meta name="description" content="Browse our collection of fashion items" />
+            <nav class="mobile-nav">
+              <div class="mobile-nav-container">
                 <a href="/" class="nav-link">Home</a>
                 <a href="/about" class="nav-link">About</a>
               </div>
